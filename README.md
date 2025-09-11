@@ -1,4 +1,4 @@
-    NextStep is a mobile RPG built in Unity where a player’s real-world steps power
+NextStep is a mobile RPG built in Unity where a player’s real-world steps power
 their hero’s journey with data collected from HealthKit (iOS) and Health Connect
 (Android). Each step converts to in-game XP, resources, and quest progress. The
 primary goal of creating this app is to promote healthier lifestyles by encouraging
@@ -7,7 +7,7 @@ progression. By blending fitness tracking with RPG mechanics, movement becomes a
 rewarding adventure, and players are encouraged to stay active to continue their epic
 adventure.
 
-    The core gameplay elements affected by physical activity will be completing
+The core gameplay elements affected by physical activity will be completing
 Quests, increasing Player Stats (Strength, Stamina, Speed), and earning
 Loot/Equipment. Players will take on fitness-based quests such as "Walk 5,000 steps to
 defeat the Slime King" or "Complete a 30-minute workout to rescue the town from a
