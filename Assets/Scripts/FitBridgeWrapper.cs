@@ -10,6 +10,34 @@ public class FitBridgeWrapper : MonoBehaviour {
     public int stepCount;
     public float refreshInterval = 10f; // seconds between refreshes
 
+    #if UNITY_IOS && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern void _RequestHealthKitPermissions();
+
+    [DllImport("__Internal")]
+    private static extern void _GetTodaySteps();
+    #endif
+
+    public void RequestPermissions() {
+        #if UNITY_ANDROID && !UNITY_EDITOR
+            fitBridge.Call("requestPermissions");
+        #elif UNITY_IOS && !UNITY_EDITOR
+            _RequestHealthKitPermissions();
+        #else
+                Debug.Log("RequestPermissions called in editor");
+        #endif
+    }
+
+    public void ReadTodaySteps() {
+        #if UNITY_ANDROID && !UNITY_EDITOR
+            fitBridge.Call("readTodaySteps");
+        #elif UNITY_IOS && !UNITY_EDITOR
+            _GetTodaySteps();
+        #else
+                Debug.Log("ReadTodaySteps called in editor");
+        #endif
+    }
+
     void Awake() {
         // Singleton pattern
         if (Instance != null && Instance != this) {
@@ -35,10 +63,6 @@ public class FitBridgeWrapper : MonoBehaviour {
             ReadTodaySteps();
             yield return new WaitForSeconds(refreshInterval);
         }
-    }
-
-    public void ReadTodaySteps() {
-        fitBridge.Call("readTodaySteps");
     }
 
     public void OnStepsReceived(string steps) {
