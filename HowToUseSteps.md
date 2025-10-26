@@ -1,5 +1,7 @@
 In C# file use this to get the steps from the tracking integration:
-`int steps = FitBridgeWrapper.Instance.stepCount;`
+```
+int steps = FitBridgeWrapper.Instance.stepCount;
+```
 
 Also if you want to handle step changes in real time, add these to your script:
 ```
