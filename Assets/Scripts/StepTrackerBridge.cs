@@ -1,3 +1,6 @@
+#if UNITY_ANDROID && !UNITY_EDITOR
+using UnityEngine;
+
 public static class StepTrackerBridge {
 #if UNITY_ANDROID && !UNITY_EDITOR
     private static AndroidJavaObject plugin;
@@ -32,3 +35,4 @@ public static class StepTrackerBridge {
     private static extern int GetHealthKitSteps();
 #endif
 }
+#endif
