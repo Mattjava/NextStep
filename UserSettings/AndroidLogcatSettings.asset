@@ -1,0 +1,219 @@
+{
+    "m_SelectedDeviceId": "RFCXC0GJ9LN",
+    "m_SelectedProcess": {
+        "deviceId": "RFCXC0GJ9LN",
+        "name": "com.DefaultCompany.NextStep",
+        "processId": 10148,
+        "exited": false
+    },
+    "m_SelectedPriority": 0,
+    "m_KnownProcessesForSerialization": [
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.android.settings",
+            "processId": 14535,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 24272,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 30390,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 31994,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 1829,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 11211,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 15789,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 26355,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 27305,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 28892,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 30376,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 31972,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 32599,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 715,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 3115,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 5154,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 7207,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 8648,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCXC0GJ9LN",
+            "name": "com.DefaultCompany.NextStep",
+            "processId": 10148,
+            "exited": false
+        }
+    ],
+    "m_Tags": {
+        "m_Entries": [
+            {
+                "m_Name": "Filter by all listed tags",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "No Filter",
+                "m_Selected": true
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Tag Control...",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "Unity",
+                "m_Selected": false
+            },
+            {
+                "m_Name": "CRASH",
+                "m_Selected": false
+            }
+        ]
+    },
+    "m_ExtraWindowState": {
+        "Type": 0,
+        "Height": 0.0
+    },
+    "m_MemoryViewerState": {
+        "MemoryWindowWidth": 170.0,
+        "MemoryTypeEnabled": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+        ],
+        "MemoryGroup": 2,
+        "AutoCapture": true
+    },
+    "m_FilterOptions": {
+        "m_Filter": "",
+        "m_UseRegularExpressions": false,
+        "m_MatchCase": false
+    },
+    "m_SymbolPaths": [],
+    "m_CaptureVideoSettings": {
+        "TimeLimitEnabled": false,
+        "TimeLimit": 180,
+        "VideoSizeEnabled": false,
+        "VideoSizeX": 1280,
+        "VideoSizeY": 720,
+        "BitRateEnabled": false,
+        "BitRateK": 20000,
+        "DisplayIdEnabled": false,
+        "DisplayId": ""
+    },
+    "m_ScreenCaptureSettings": {
+        "Mode": 0,
+        "m_LastSaveLocation": [
+            "C:\\Users\\rig2\\Documents\\GitHub\\NextStep",
+            "C:\\Users\\rig2\\Documents\\GitHub\\NextStep"
+        ]
+    },
+    "m_QueryLayoutSettings": {
+        "LastLayoutSaveLocation": "",
+        "LastScreenshotSaveLocation": ""
+    },
+    "m_InputSettings": {
+        "ShiftModifier": false,
+        "SendText": "",
+        "PosixKillSignal": 0,
+        "TargetProcess": {
+            "deviceId": "",
+            "name": "",
+            "processId": 0,
+            "exited": false
+        }
+    },
+    "m_AutoScroll": 2
+}

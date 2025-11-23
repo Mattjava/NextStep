@@ -69,6 +69,7 @@ public class FitBridgeWrapper : MonoBehaviour {
         if (int.TryParse(steps, out int parsedSteps)) {
             stepCount = parsedSteps;
             UpdateStepText(stepCount);
+            NotifyStepChange();   // fire event
         }
     }
 
@@ -85,3 +86,4 @@ public class FitBridgeWrapper : MonoBehaviour {
         OnStepUpdate?.Invoke(stepCount);
     }
 }
+
