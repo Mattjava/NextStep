@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "QuestData", menuName = "NextStep/Quest")]
@@ -13,6 +14,9 @@ public class QuestData : ScriptableObject {
     public int timeLimitHour;
 
     public QuestType questType;
+
+    // Loot rewards
+    public List<LootReward> lootRewards = new List<LootReward>();
 }
 
 public enum QuestType {

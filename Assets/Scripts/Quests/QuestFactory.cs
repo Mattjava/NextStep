@@ -3,7 +3,7 @@ public static class QuestFactory {
         return instance.data.questType switch {
             QuestType.StepGoal => new StepGoalQuest(instance, playerStartingSteps),
             QuestType.Streak => new StreakQuest(instance),
-           // QuestType.TimeWindow => new TimeWindowQuest(instance),
+            QuestType.TimeWindow => new TimeWindowQuest(instance),
             // default fallback
             _ => new StepGoalQuest(instance, playerStartingSteps)
         };

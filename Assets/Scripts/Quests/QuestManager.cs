@@ -6,8 +6,10 @@ public class QuestManager : MonoBehaviour {
 
     private List<Quest> activeQuests = new();
     private int playerStartingSteps;
-
+    public static int StartingSteps { get; private set; }
     public QuestProgressUI stepGoalUI;
+
+    public QuestCompletionHandler completionHandler;
 
     private void Start() {
         // 1. Get starting steps
@@ -23,6 +25,10 @@ public class QuestManager : MonoBehaviour {
         if (FitBridgeWrapper.Instance != null)
             FitBridgeWrapper.Instance.OnStepUpdate += OnStepUpdate;
     }
+    private void Update() {
+        foreach (var quest in activeQuests)
+            quest.Tick();
+    }
 
     private void OnDestroy() {
         if (FitBridgeWrapper.Instance != null)
@@ -30,14 +36,20 @@ public class QuestManager : MonoBehaviour {
     }
 
     public void OnStepUpdate(int newTotalSteps) {
-        foreach (var quest in activeQuests)
+        foreach (var quest in activeQuests) {
             quest.OnStepUpdate(newTotalSteps);
 
-        //  Refresh the progress bar
+            //  Check for completion
+            if (!quest.Instance.IsCompleted &&
+                quest.Instance.IsComplete()) {
+                CompleteQuest(quest);
+            }
+        }
+
+        // Refresh UI
         if (stepGoalUI != null)
             stepGoalUI.UpdateUI();
     }
-
 
     private void LoadQuests() {
         activeQuests.Clear();
@@ -54,9 +66,25 @@ public class QuestManager : MonoBehaviour {
 
         if (stepGoalQuest != null && stepGoalUI != null)
             stepGoalUI.Bind(stepGoalQuest.Instance);
+
         Debug.Log("Loaded quests: " + activeQuests.Count);
         Debug.Log("StepGoal quest: " + stepGoalQuest?.Instance.data.questName);
+    }
 
+    // COMPLETION LOGIC
+    private void CompleteQuest(Quest quest) {
+        quest.Instance.Complete();   // complete the quest
+
+        Debug.Log($"Quest completed: {quest.Instance.data.questName}");
+
+        if (completionHandler != null)
+            completionHandler.CompleteQuest(quest.Instance.data);
+
+        if (stepGoalUI != null)
+            stepGoalUI.UpdateUI();
+    }
+    public List<Quest> GetActiveQuests() {
+        return activeQuests; 
     }
 
 
