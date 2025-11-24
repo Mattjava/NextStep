@@ -75,7 +75,7 @@ public class FitBridgeWrapper : MonoBehaviour {
 
     public void UpdateStepText(int steps) {
         if (stepText != null)
-            stepText.text = "Steps: " + steps.ToString("N0");
+            stepText.text = "Today's Steps: " + steps.ToString("N0");
     }
 
     // Optional: helper for scripts to subscribe to changes
