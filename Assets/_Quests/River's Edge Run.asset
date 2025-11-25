@@ -20,7 +20,7 @@ MonoBehaviour:
   stepGoal: 1200
   streakDays: 0
   timeLimitHour: 3
-  questType: 2
+  questType: 0
   lootRewards:
   - lootItem: {fileID: 11400000, guid: 0cbc843dac0d1094e8b4ad6060faec8f, type: 2}
     quantity: 3
