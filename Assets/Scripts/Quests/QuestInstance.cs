@@ -2,7 +2,9 @@ using System;
 using UnityEngine;
 
 [Serializable]
+
 public class QuestInstance {
+
     public QuestData data;
     public QuestState state;
 
@@ -11,6 +13,10 @@ public class QuestInstance {
     public DateTime startTime;
     public float timeLimitSeconds;
     public float elapsedSeconds;
+    public bool readyToComplete;
+    public bool readyToFail;
+
+
 
     public float TimeRemaining => Mathf.Max(0, timeLimitSeconds - elapsedSeconds);
 
@@ -27,7 +33,10 @@ public class QuestInstance {
         state = QuestState.Active;
         startTime = DateTime.Now;
         Progress = 0f;
+        readyToComplete = false;
+        readyToFail = false;
     }
+
 
     // =====================================================
     //  UPDATE STEP PROGRESS (called from Quest.OnStepUpdate)
@@ -35,23 +44,31 @@ public class QuestInstance {
     public void ApplyStepUpdate(int totalStepsToday, int startingSteps) {
         if (IsCompleted || !IsActive) return;
 
-        int stepsSinceStart = Mathf.Max(0, totalStepsToday - startingSteps);
+        // STEP GOAL QUESTS Use ABSOLUTE daily step count
+        if (data.questType == QuestType.StepGoal) {
+            currentSteps = totalStepsToday;
+        }
+        // OTHER QUEST TYPES Use DELTA since quest start
+        else {
+            int stepsSinceStart = Mathf.Max(0, totalStepsToday - startingSteps);
+            currentSteps = stepsSinceStart;
+        }
 
-        currentSteps = stepsSinceStart;
-
+        // Update Progress for UI
         if (data.questType == QuestType.StepGoal) {
             if (data.stepGoal > 0)
                 Progress = Mathf.Clamp01((float)currentSteps / data.stepGoal);
             else
                 Progress = 0f;
         }
- 
     }
 
     // =====================================================
     //  DETERMINE IF QUEST IS COMPLETE
     // =====================================================
     public bool IsComplete() {
+        Debug.Log($"[COMPLETE CHECK] {data.questName} | currentSteps={currentSteps} >= stepGoal={data.stepGoal}? -> {currentSteps >= data.stepGoal}");
+
         if (IsCompleted) return true;
 
         switch (data.questType) {
@@ -78,8 +95,10 @@ public class QuestInstance {
     //  COMPLETE / FAIL
     // =====================================================
     public void Complete() {
+        Debug.Log($"[QUEST INSTANCE] Marking {data.questName} as COMPLETED");
         state = QuestState.Completed;
     }
+
 
     public void Fail() {
         state = QuestState.Failed;

@@ -5,8 +5,6 @@ public class PlayerStats : MonoBehaviour {
     public int level = 1;
     public int currentXP = 0;
 
-    public AnimationCurve xpCurve;
-
     private const string XP_KEY = "PLAYER_XP";
     private const string LEVEL_KEY = "PLAYER_LEVEL";
 
@@ -17,7 +15,7 @@ public class PlayerStats : MonoBehaviour {
         LoadStats();
     }
 
-    public int XPToNextLevel => Mathf.CeilToInt(xpCurve.Evaluate(level) * 100);
+    public int XPToNextLevel => 100 * (level * level) + 50 * level;
 
     public void AddXP(int amount) {
         if (amount <= 0) return;

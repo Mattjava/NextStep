@@ -6,11 +6,7 @@ public abstract class Quest {
         this.instance = instance;
     }
 
-
     public abstract void Initialize();
     public abstract void OnStepUpdate(int newTotalSteps);
-    public abstract void Tick(); // time-based logic
-
-    protected void Complete() => instance.Complete();
-    protected void Fail() => instance.Fail();
+    public abstract void Tick();
 }

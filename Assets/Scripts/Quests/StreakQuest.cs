@@ -12,7 +12,7 @@ public class StreakQuest : Quest {
             instance.currentStreak = 0;
 
         if (instance.currentStreak >= instance.data.streakDays)
-            Complete();
+            instance.readyToComplete = true;
     }
 
     public override void Tick() { }

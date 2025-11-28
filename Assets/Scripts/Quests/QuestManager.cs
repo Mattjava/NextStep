@@ -13,10 +13,15 @@ public class QuestManager : MonoBehaviour {
 
     private void Start() {
         // 1. Get starting steps
+        #if UNITY_EDITOR
+                playerStartingSteps = 0;   // Always start at zero for demo mode
+        #else
         if (FitBridgeWrapper.Instance != null)
             playerStartingSteps = FitBridgeWrapper.Instance.stepCount;
         else
             playerStartingSteps = 0;
+        #endif
+
 
         // 2. Load quests
         LoadQuests();
@@ -39,17 +44,18 @@ public class QuestManager : MonoBehaviour {
         foreach (var quest in activeQuests) {
             quest.OnStepUpdate(newTotalSteps);
 
-            //  Check for completion
-            if (!quest.Instance.IsCompleted &&
-                quest.Instance.IsComplete()) {
-                CompleteQuest(quest);
+            if (!quest.Instance.IsCompleted) {
+                if (quest.Instance.readyToComplete)
+                    CompleteQuest(quest);
+
+                if (quest.Instance.readyToFail)
+                    FailQuest(quest);
             }
         }
 
-        // Refresh UI
-        if (stepGoalUI != null)
-            stepGoalUI.UpdateUI();
+        stepGoalUI?.UpdateUI();
     }
+
 
     private void LoadQuests() {
         activeQuests.Clear();
@@ -73,6 +79,8 @@ public class QuestManager : MonoBehaviour {
 
     // COMPLETION LOGIC
     private void CompleteQuest(Quest quest) {
+        Debug.Log("[QUEST MANAGER] CompleteQuest() called");
+
         quest.Instance.Complete();   // complete the quest
 
         Debug.Log($"Quest completed: {quest.Instance.data.questName}");
@@ -86,6 +94,12 @@ public class QuestManager : MonoBehaviour {
     public List<Quest> GetActiveQuests() {
         return activeQuests; 
     }
+
+    private void FailQuest(Quest quest) {
+        quest.Instance.Fail();
+        Debug.Log($"Quest failed: {quest.Instance.data.questName}");
+    }
+
 
 
 }
