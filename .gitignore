@@ -101,6 +101,10 @@ InitTestScene*.unity*
 
 # Firebase
 /[Aa]ssets/Firebase/Plugins/x86_64/
+/[Aa]ssets/google-services.json
+/[Aa]ssets/StreamingAssets/google-services-desktop.json
+/[Aa]ssets/GoogleService-Info.plist
+
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
