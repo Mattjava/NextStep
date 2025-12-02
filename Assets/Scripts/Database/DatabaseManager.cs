@@ -1,18 +1,35 @@
 using UnityEngine;
-using SQLite;
-using System.IO;
-
+using Firebase.Database;
 
 public class DatabaseManager : MonoBehaviour
 {
-    private SQLiteConnection db;
+    public InputField Username;
+    public InputField Password;
 
-    void Awake()
+    private string id;
+    private DatabaseReference reference;
+
+    void Start()
     {
-        String path = Path.Combine(Application.persistantDataPath, "game.db");
-        db = new SQLiteConnection(path);
+        id = SystemInfo.deviceUniqueIdentifier;
+        reference = FirebaseDatabase.DefaultInstance.RootReference;
+    }
 
-
-        db.CreateTable<Player>();
+    public void RegisterUser()
+    {
+        string username = Username.text;
+        string password = Password.text;
+        Player newPlayer = new Player(username, password);
+        string json = JsonUtility.ToJson(newPlayer);
+        reference.Child("users").Child(id).SetRawJsonValueAsync(json).ContinueWith(task => {
+            if (task.IsCompleted)
+            {
+                Debug.Log("User registered successfully.");
+            }
+            else
+            {
+                Debug.LogError("Failed to register user: " + task.Exception);
+            }
+        });
     }
 }

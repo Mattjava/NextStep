@@ -1,12 +1,32 @@
-using SQLite
+using SQLite;
 
 public class Player {
-    [PrimaryKey, AutoIncrement]
-    public int playerId( get; set; )
+    public string username;
+    public string password;
+    public int experience;
+    public int level;
 
-    public string username ( get; set; )
+    public user(string username, string password)
+    {
+        this.password = password;
+        this.username = username;
+        experience = 0;
+        level = 1;
+    }
 
-    public string password ( get; set; )
+    public override string ToString()
+    {
+        return "Username: " + username + " Password: " + password + " Experience: " + experience + " Level: " + level;
+    }
 
-    public int xp (get; set; ) = 0;
+    public void AddExperience(int exp)
+    {
+        experience += exp;
+        while(experience >= level * 100)
+        {
+            experience -= level * 100;
+            level++;
+        }
+    }
+
 }
