@@ -99,6 +99,9 @@ InitTestScene*.unity*
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers
 /[Aa]ssets/Unity.VisualScripting.Generated/VisualScripting.Core/Property Providers.meta
 
+# Firebase
+/[Aa]ssets/Firebase/Plugins/x86_64/
+
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
@@ -106,3 +109,4 @@ InitTestScene*.unity*
 .DS_Store
 Thumbs.db
 desktop.ini
+
