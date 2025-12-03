@@ -7,22 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:151881214454:ios:958bb61ac4db56d3f6ffd7",
+        "mobilesdk_app_id": "1:151881214454:android:d827a77db6caded2f6ffd7",
         "android_client_info": {
           "package_name": "com.DefaultCompany.NextStep"
         }
       },
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCwtuhRiveh_eOpw9HQD5kcanrrW9zNQRI"
+          "current_key": "AIzaSyCVrDudTQ0xAxuLR-_UHjeEZmUkXVB9c9A"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 0
-        },
         "appinvite_service": {
-          "status": 1
+          "other_platform_oauth_client": []
         }
       }
     }
