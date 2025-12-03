@@ -6,7 +6,7 @@ public class Player {
     public int experience;
     public int level;
 
-    public user(string username, string password)
+    public Player(string username, string password)
     {
         this.password = password;
         this.username = username;
@@ -27,6 +27,11 @@ public class Player {
             experience -= level * 100;
             level++;
         }
+    }
+
+    public int GetExperience()
+    {
+        return experience;
     }
 
 }
