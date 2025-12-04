@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using Firebase.Database; 
+
 
 public class PlayerStats : MonoBehaviour {
     public int level = 1;
@@ -8,16 +10,40 @@ public class PlayerStats : MonoBehaviour {
     private const string XP_KEY = "PLAYER_XP";
     private const string LEVEL_KEY = "PLAYER_LEVEL";
 
-    public DatabaseManager database;
-
-    private Player player;
+    private Player player; // Don't initialize here
+    private DatabaseManager databaseManager;
 
     public event Action OnXPChanged;
     public event Action OnLevelUp;
 
     private void Awake() {
-        player = database.GetPlayer();
+        // Get reference to DatabaseManager
+        databaseManager = FindObjectOfType<DatabaseManager>();
+        
+        if (databaseManager == null) {
+            Debug.LogError("DatabaseManager not found in scene!");
+            return;
+        }
+
         LoadStats();
+        LoadPlayerFromDatabase();
+    }
+
+    private void LoadPlayerFromDatabase() {
+        string id = SystemInfo.deviceUniqueIdentifier;
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
+        
+        reference.Child("users").Child(id).GetValueAsync().ContinueWith(task => {
+            if (task.IsCompleted && task.Result.Exists) {
+                player = JsonUtility.FromJson<Player>(task.Result.GetRawJsonValue());
+                
+                // Sync local stats with Firebase if needed
+                if (player.experience != currentXP) {
+                    currentXP = player.experience;
+                    OnXPChanged?.Invoke();
+                }
+            }
+        });
     }
 
     public int XPToNextLevel => 100 * (level * level) + 50 * level;
@@ -33,6 +59,10 @@ public class PlayerStats : MonoBehaviour {
             LevelUp();
         }
 
+        // Update Firebase
+        if (databaseManager != null) {
+            databaseManager.updateExperience(currentXP);
+        }
 
         OnXPChanged?.Invoke();
     }
@@ -44,9 +74,6 @@ public class PlayerStats : MonoBehaviour {
         Debug.Log($"LEVEL UP! You're now level {level}");
     }
 
-    // ===========================================
-    // SAVE + LOAD
-    // ===========================================
     public void SaveStats() {
         PlayerPrefs.SetInt(XP_KEY, currentXP);
         PlayerPrefs.SetInt(LEVEL_KEY, level);
