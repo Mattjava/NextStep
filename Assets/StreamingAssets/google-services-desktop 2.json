@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "151881214454",
+    "project_id": "nextsteps-545e3",
+    "storage_bucket": "nextsteps-545e3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:151881214454:android:d827a77db6caded2f6ffd7",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.NextStep"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVrDudTQ0xAxuLR-_UHjeEZmUkXVB9c9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
