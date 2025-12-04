@@ -8,12 +8,15 @@ public class PlayerStats : MonoBehaviour {
     private const string XP_KEY = "PLAYER_XP";
     private const string LEVEL_KEY = "PLAYER_LEVEL";
 
-    private const Player player = GetPlayer();
+    public DatabaseManager database;
+
+    private Player player;
 
     public event Action OnXPChanged;
     public event Action OnLevelUp;
 
     private void Awake() {
+        player = database.GetPlayer();
         LoadStats();
     }
 
@@ -30,7 +33,6 @@ public class PlayerStats : MonoBehaviour {
             LevelUp();
         }
 
-        player.experience = currentXP;
 
         OnXPChanged?.Invoke();
     }
