@@ -10,6 +10,17 @@ public class Player {
     public Player(string id)
     {
         this.id = id;
+        username = "Guest";
+        password = "";
+        experience = 0;
+        level = 1;
+    }
+
+    public Player(string username, string password)
+    {
+        this.id = System.Guid.NewGuid().ToString();
+        this.username = username;
+        this.password = password;
         experience = 0;
         level = 1;
     }
