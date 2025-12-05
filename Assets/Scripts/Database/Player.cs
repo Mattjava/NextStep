@@ -2,6 +2,8 @@ using SQLite;
 
 public class Player {
     public string id;
+    public string username;
+    public string password;
     public int experience;
     public int level;
 
