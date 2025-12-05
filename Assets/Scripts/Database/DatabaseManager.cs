@@ -5,6 +5,9 @@ using System.Collections;
 
 public class DatabaseManager : MonoBehaviour
 {
+    private InputField password;
+    private InputField username;
+
     private string id;
     private Player user;
     private DatabaseReference reference;
@@ -18,9 +21,9 @@ public class DatabaseManager : MonoBehaviour
 
     public void RegisterUser()
     {
-        string username = Username.text;
-        string password = Password.text;
-        Player newPlayer = new Player(username, password);
+        string newUsername = username.text;
+        string newPassword = password.text;
+        Player newPlayer = new Player(newUsername, newPassword);
         string json = JsonUtility.ToJson(newPlayer);
         reference.Child("players").Child(id).SetRawJsonValueAsync(json).ContinueWith(task =>
         {
@@ -46,7 +49,7 @@ public class DatabaseManager : MonoBehaviour
                 if (snapshot.Exists)
                 {
                     Player existingPlayer = JsonUtility.FromJson<Player>(snapshot.GetRawJsonValue());
-                    if (existingPlayer.password == Password.text && existingPlayer.username == Username.text)
+                    if (existingPlayer.password == password.text && existingPlayer.username == username.text)
                     {
                         Debug.Log("Login successful: " + existingPlayer.ToString());
                         user = existingPlayer;

@@ -1,9 +1,12 @@
-using SQLite;
+using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class Player {
     public string id;
     public string username;
     public string password;
+    public List<Quest> completedQuests;
     public int experience;
     public int level;
 
@@ -14,6 +17,7 @@ public class Player {
         password = "";
         experience = 0;
         level = 1;
+        completedQuests = new List<Quest>();
     }
 
     public Player(string username, string password)
@@ -23,6 +27,7 @@ public class Player {
         this.password = password;
         experience = 0;
         level = 1;
+        completedQuests = new List<Quest>();
     }
 
     public override string ToString()
@@ -45,4 +50,13 @@ public class Player {
         return experience;
     }
 
+    public void AddCompletedQuest(Quest quest)
+    {
+        completedQuests.Add(quest);
+    }
+    
+    public List<Quest> GetCompletedQuest()
+    {
+        return completedQuests;
+    }
 }
