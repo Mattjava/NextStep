@@ -5,16 +5,22 @@ using System.Collections;
 
 public class DatabaseManager : MonoBehaviour
 {
-    public InputField Username;
-    public InputField Password;
-
     private string id;
+    private Player user;
     private DatabaseReference reference;
 
     void Start()
     {
         id = SystemInfo.deviceUniqueIdentifier;
         reference = FirebaseDatabase.DefaultInstance.RootReference;
+        
+        if(GetPlayer(id) == null)
+        {
+            user = (Player) createPlayer();
+        } else
+        {
+            user = (Player) GetPlayer(id);
+        }
     }
 
     //public void RegisterUser()
@@ -65,18 +71,20 @@ public class DatabaseManager : MonoBehaviour
     //    });
     //}
 
-    public IEnumerator GetPlayer(System.Action<Player> callback)
+    public IEnumerator createPlayer()
     {
-        var userData = reference.Child("users").Child(id).GetValueAsync();
+        Player newPlayer = new Player(id);
+        string json = JsonUtility.ToJson(newPlayer);
 
-        yield return new WaitUntil(predicate: () => userData.IsCompleted);
+        var dbTask = reference.Child("users").Child(id).SetRawJsonValueAsync(json);
+        return new WaitUntil(predicate: () => dbTask.IsCompleted);
+    }
 
-        if(userData != null)
-        {
-            DataSnapshot snapshot = userData.Result;
-            Player player = JsonUtility.FromJson<Player>(snapshot.GetRawJsonValue());
-            callback.Invoke(player);
-        }
+    public IEnumerator GetPlayer(string newId)
+    {
+        var userData = reference.Child("users").Child(newId).GetValueAsync();
+
+        return new WaitUntil(predicate: () => userData.IsCompleted);
     }
 
     public IEnumerator getExperience(System.Action<int> callback)

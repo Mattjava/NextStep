@@ -1,22 +1,20 @@
 using SQLite;
 
 public class Player {
-    public string username;
-    public string password;
+    public string id;
     public int experience;
     public int level;
 
-    public Player(string username, string password)
+    public Player(string id)
     {
-        this.password = password;
-        this.username = username;
+        this.id = id;
         experience = 0;
         level = 1;
     }
 
     public override string ToString()
     {
-        return "Username: " + username + " Password: " + password + " Experience: " + experience + " Level: " + level;
+        return experience + " Level: " + level;
     }
 
     public void AddExperience(int exp)
