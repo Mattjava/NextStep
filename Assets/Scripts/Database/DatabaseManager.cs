@@ -13,63 +13,60 @@ public class DatabaseManager : MonoBehaviour
     {
         id = SystemInfo.deviceUniqueIdentifier;
         reference = FirebaseDatabase.DefaultInstance.RootReference;
-        
-        if(GetPlayer(id) == null)
-        {
-            user = (Player) createPlayer();
-        } else
-        {
-            user = (Player) GetPlayer(id);
-        }
+        user = null;
     }
 
-    //public void RegisterUser()
-    //{
-    //    string username = Username.text;
-    //    string password = Password.text;
-    //    Player newPlayer = new Player(username, password);
-    //    string json = JsonUtility.ToJson(newPlayer);
-    //    reference.Child("players").Child(id).SetRawJsonValueAsync(json).ContinueWith(task => {
-    //        if (task.IsCompleted)
-    //        {
-    //            Debug.Log("User registered successfully.");
-    //        }
-    //        else
-    //        {
-    //            Debug.LogError("Failed to register user: " + task.Exception);
-    //        }
-    //    });
-    //}
+    public void RegisterUser()
+    {
+        string username = Username.text;
+        string password = Password.text;
+        Player newPlayer = new Player(username, password);
+        string json = JsonUtility.ToJson(newPlayer);
+        reference.Child("players").Child(id).SetRawJsonValueAsync(json).ContinueWith(task =>
+        {
+            if (task.IsCompleted)
+            {
+                Debug.Log("User registered successfully.");
+                user = newPlayer;
+            }
+            else
+            {
+                Debug.LogError("Failed to register user: " + task.Exception);
+            }
+        });
+    }
 
-    //public void LoginUser()
-    //{
-    //    reference.Child("players").Child(id).GetValueAsync().ContinueWith(task => {
-    //        if (task.IsCompleted)
-    //        {
-    //            DataSnapshot snapshot = task.Result;
-    //            if (snapshot.Exists)
-    //            {
-    //                Player existingPlayer = JsonUtility.FromJson<Player>(snapshot.GetRawJsonValue());
-    //                if (existingPlayer.password == Password.text && existingPlayer.username == Username.text)
-    //                {
-    //                    Debug.Log("Login successful: " + existingPlayer.ToString());
-    //                }
-    //                else
-    //                {
-    //                    Debug.LogError("Invalid username or password.");
-    //                }
-    //            }
-    //            else
-    //            {
-    //                Debug.LogError("User does not exist.");
-    //            }
-    //        }
-    //        else
-    //        {
-    //            Debug.LogError("Failed to retrieve user: " + task.Exception);
-    //        }
-    //    });
-    //}
+    public void LoginUser()
+    {
+        reference.Child("players").Child(id).GetValueAsync().ContinueWith(task =>
+        {
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                if (snapshot.Exists)
+                {
+                    Player existingPlayer = JsonUtility.FromJson<Player>(snapshot.GetRawJsonValue());
+                    if (existingPlayer.password == Password.text && existingPlayer.username == Username.text)
+                    {
+                        Debug.Log("Login successful: " + existingPlayer.ToString());
+                        user = existingPlayer;
+                    }
+                    else
+                    {
+                        Debug.LogError("Invalid username or password.");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("User does not exist.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to retrieve user: " + task.Exception);
+            }
+        });
+    }
 
     public IEnumerator createPlayer()
     {
