@@ -6,9 +6,11 @@ public class Player {
     public string id;
     public string username;
     public string password;
-    public List<Quest> completedQuests;
+    public List<QuestData> completedQuests;
     public int experience;
     public int level;
+
+    public PlayerInventory playerInventory;
 
     public Player(string id)
     {
@@ -17,7 +19,8 @@ public class Player {
         password = "";
         experience = 0;
         level = 1;
-        completedQuests = new List<Quest>();
+        completedQuests = new List<QuestData>();
+        playerInventory = new PlayerInventory();
     }
 
     public Player(string username, string password)
@@ -50,7 +53,7 @@ public class Player {
         return experience;
     }
 
-    public void AddCompletedQuest(Quest quest)
+    public void AddCompletedQuest(QuestData quest)
     {
         completedQuests.Add(quest);
     }
@@ -58,5 +61,10 @@ public class Player {
     public List<Quest> GetCompletedQuest()
     {
         return completedQuests;
+    }
+
+    public PlayerInventory GetPlayerInventory()
+    {
+        return playerInventory;
     }
 }
