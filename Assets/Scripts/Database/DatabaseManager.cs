@@ -125,4 +125,9 @@ public class DatabaseManager : MonoBehaviour
     {
         reference.Child("player").Child(id).Child("level").SetValueAsync(newLevel);
     }
+
+    public void updatePlayer(Player newPlayerData)
+    {
+        reference.Child("player").Child().SetValueAsync(newPlayerData);
+    }
 }

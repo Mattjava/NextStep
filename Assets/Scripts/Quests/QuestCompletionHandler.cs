@@ -6,12 +6,13 @@ public class QuestCompletionHandler : MonoBehaviour {
     public QuestCompletePopup popup;
 
     public void CompleteQuest(QuestData quest) {
+        playerStats.AddCompletedQuest(quest);
         playerStats.AddXP(quest.xpReward);
 
         string lootSummary = "";
         foreach (var reward in quest.lootRewards) {
             inventory.AddItem(reward.lootItem, reward.quantity);
-            lootSummary += $"\n • {reward.quantity}x {reward.lootItem.name}";
+            lootSummary += $"\n ï¿½ {reward.quantity}x {reward.lootItem.name}";
         }
 
         // Build popup message
