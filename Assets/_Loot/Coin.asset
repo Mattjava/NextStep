@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: coin
   itemName: Coin
-  icon: {fileID: 21300000, guid: 666ee4ca1a8b5be4d9c1bc6b54a375a4, type: 3}
+  icon: {fileID: 21300000, guid: 898060324a24c434d8e4c20055742ea5, type: 3}
   rarity: 0
   description: Money

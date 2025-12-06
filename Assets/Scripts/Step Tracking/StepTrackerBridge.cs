@@ -24,27 +24,27 @@ public static class StepTrackerBridge {
     }
 
     public static int GetTodaySteps() {
-        #if UNITY_ANDROID && !UNITY_EDITOR
+#if UNITY_ANDROID && !UNITY_EDITOR
                 return plugin.Call<int>("getStepsToday");
-        #elif UNITY_EDITOR
-                return simulatedSteps;
-        #else
+#elif UNITY_EDITOR
+        return simulatedSteps;
+#else
                 return 0;
-        #endif
+#endif
     }
 
     public static void AddDemoSteps(int amount) {
         Debug.Log("[STEPBRIDGE] AddDemoSteps CALLED");
 
-        #if UNITY_EDITOR
-                simulatedSteps += amount;
-                Debug.Log("[STEPBRIDGE] SimulatedSteps = " + simulatedSteps);
+#if UNITY_EDITOR
+        simulatedSteps += amount;
+        Debug.Log("[STEPBRIDGE] SimulatedSteps = " + simulatedSteps);
 
-                if (FitBridgeWrapper.Instance != null) {
-                    FitBridgeWrapper.Instance.stepCount = simulatedSteps;
-                    FitBridgeWrapper.Instance.UpdateStepText(simulatedSteps);
-                }
-        #endif
+        if (FitBridgeWrapper.Instance != null) {
+            FitBridgeWrapper.Instance.stepCount = simulatedSteps;
+            FitBridgeWrapper.Instance.UpdateStepText(simulatedSteps);
+        }
+#endif
     }
 
 
