@@ -1,31 +1,36 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Firebase.Database;
+using System.Collections;
 
 public class DatabaseManager : MonoBehaviour
 {
-    public InputField Username;
-    public InputField Password;
+    private InputField password;
+    private InputField username;
 
     private string id;
+    private Player user;
     private DatabaseReference reference;
 
     void Start()
     {
         id = SystemInfo.deviceUniqueIdentifier;
         reference = FirebaseDatabase.DefaultInstance.RootReference;
+        user = null;
     }
 
     public void RegisterUser()
     {
-        string username = Username.text;
-        string password = Password.text;
-        Player newPlayer = new Player(username, password);
+        string newUsername = username.text;
+        string newPassword = password.text;
+        Player newPlayer = new Player(newUsername, newPassword);
         string json = JsonUtility.ToJson(newPlayer);
-        reference.Child("users").Child(id).SetRawJsonValueAsync(json).ContinueWith(task => {
+        reference.Child("players").Child(id).SetRawJsonValueAsync(json).ContinueWith(task =>
+        {
             if (task.IsCompleted)
             {
                 Debug.Log("User registered successfully.");
+                user = newPlayer;
             }
             else
             {
@@ -36,16 +41,18 @@ public class DatabaseManager : MonoBehaviour
 
     public void LoginUser()
     {
-        reference.Child("users").Child(id).GetValueAsync().ContinueWith(task => {
+        reference.Child("players").Child(id).GetValueAsync().ContinueWith(task =>
+        {
             if (task.IsCompleted)
             {
                 DataSnapshot snapshot = task.Result;
                 if (snapshot.Exists)
                 {
                     Player existingPlayer = JsonUtility.FromJson<Player>(snapshot.GetRawJsonValue());
-                    if (existingPlayer.password == Password.text && existingPlayer.username == Username.text)
+                    if (existingPlayer.password == password.text && existingPlayer.username == username.text)
                     {
                         Debug.Log("Login successful: " + existingPlayer.ToString());
+                        user = existingPlayer;
                     }
                     else
                     {
@@ -64,58 +71,58 @@ public class DatabaseManager : MonoBehaviour
         });
     }
 
-    public void GetPlayer(System.Action<Player> callback)
+    public IEnumerator createPlayer()
     {
-        reference.Child("users").Child(id).GetValueAsync().ContinueWith(task => {
-            if (task.IsCompleted)
-            {
-                DataSnapshot snapshot = task.Result;
-                if (snapshot.Exists)
-                {
-                    Player existingPlayer = JsonUtility.FromJson<Player>(snapshot.GetRawJsonValue());
-                    callback?.Invoke(existingPlayer);
-                }
-                else
-                {
-                    Debug.LogError("User does not exist.");
-                    callback?.Invoke(null);
-                }
-            }
-            else
-            {
-                Debug.LogError("Failed to retrieve user: " + task.Exception);
-                callback?.Invoke(null);
-            }
-        });
+        Player newPlayer = new Player(id);
+        string json = JsonUtility.ToJson(newPlayer);
+
+        var dbTask = reference.Child("users").Child(id).SetRawJsonValueAsync(json);
+        return new WaitUntil(predicate: () => dbTask.IsCompleted);
     }
 
-    public void getExperience(System.Action<int> callback)
+    public IEnumerator GetPlayer(string newId)
     {
-        reference.Child("users").Child(id).GetValueAsync().ContinueWith(task => {
-            if (task.IsCompleted)
-            {
-                DataSnapshot snapshot = task.Result;
-                if (snapshot.Exists)
-                {
-                    Player existingPlayer = JsonUtility.FromJson<Player>(snapshot.GetRawJsonValue());
-                    callback?.Invoke(existingPlayer.experience);
-                }
-                else
-                {
-                    Debug.LogError("User does not exist.");
-                    callback?.Invoke(0);
-                }
-            }
-            else
-            {
-                Debug.LogError("Failed to retrieve user: " + task.Exception);
-                callback?.Invoke(0);
-            }
-        });
+        var userData = reference.Child("users").Child(newId).GetValueAsync();
+
+        return new WaitUntil(predicate: () => userData.IsCompleted);
     }
+
+    public IEnumerator getExperience(System.Action<int> callback)
+    {
+        var userExp = reference.Child("players").Child(id).Child("experience").GetValueAsync();
+
+        yield return new WaitUntil(predicate: () => userExp.IsCompleted);
+
+        if (userExp != null)
+        {
+            DataSnapshot snapshot = userExp.Result;
+
+            callback.Invoke(int.Parse(snapshot.Value.ToString()));
+        }
+    }
+
+    public IEnumerator getLevel(System.Action<int> callback)
+    {
+        var userLevel = reference.Child("players").Child(id).Child("level").GetValueAsync();
+
+        yield return new WaitUntil(predicate: () => userLevel.IsCompleted);
+
+        if(userLevel != null)
+        {
+            DataSnapshot snapshot = userLevel.Result;
+
+            callback.Invoke(int.Parse(snapshot.Value.ToString()));
+        }
+    }
+
 
     public void updateExperience(int newExperience)
     {
+        reference.Child("players").Child(id).Child("level").SetValueAsync(newExperience);
+    }
 
+    public void updateLevel(int newLevel)
+    {
+        reference.Child("player").Child(id).Child("level").SetValueAsync(newLevel);
     }
 }
